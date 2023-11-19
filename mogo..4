@@ -1,0 +1,80 @@
+Create the users collection
+db.createCollection("users")
+
+Create the codekata collection
+db.createCollection("codekata")
+
+Create the attendance collection
+db.createCollection("attendance")
+
+Create the topics collection
+db.createCollection("topics")
+
+Create the tasks collection
+db.createCollection("tasks")
+
+Create the company_drives collection
+db.createCollection("company_drives")
+
+Create the mentors collection
+db.createCollection("mentors")
+
+Find all the topics and tasks which are thought in the month of October
+var startDate = new Date("2020-10-01");
+var endDate = new Date("2020-10-31");
+
+db.topics.find({date: {$gte: startDate, $lte: endDate}})
+db.tasks.find({date: {$gte: startDate, $lte: endDate}})
+
+ Find all the company drives which appeared between 15 oct - 2020 and 31 - oct - 2020
+var startDate = new Date("2020-10-15");
+var endDate = new Date("2020-10-31");
+
+db.company_drives.find({date: {$gte: startDate, $lte: endDate}})
+
+ Find all the company drives and students who are appeared for the placement
+db.company_drives.aggregate([
+    {
+        $lookup:
+            {
+                from: "users",
+                localField: "students",
+                foreignField: "_id",
+                as: "students_data"
+            }
+    }
+])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
